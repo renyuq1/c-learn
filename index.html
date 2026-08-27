@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C 语言学习 · 从入门到精通</title>
+  <meta name="description" content="一个帮助你从零基础系统学习 C 语言的免费网站：在线写代码、编译运行、自动判题、章节训练与进度记录。">
+
+  <!-- CodeMirror 编辑器（C 语言高亮 + 缩进） -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/theme/dracula.min.css">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#/home">
+      <span class="brand-logo">⚙️</span>
+      <span class="brand-text">C 语言学习</span>
+      <span class="brand-sub">从入门 · 到精通</span>
+    </a>
+    <div class="topbar-progress">
+      <div class="topbar-progress-label" id="topbarProgressLabel">总进度 0%</div>
+      <div class="topbar-progress-track"><div class="topbar-progress-fill" id="topbarProgressFill"></div></div>
+    </div>
+    <nav class="topbar-nav">
+      <a href="#/home" class="topbar-link" data-nav="home">首页</a>
+      <a href="#/progress" class="topbar-link" data-nav="progress">我的进度</a>
+    </nav>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <!-- 由 JS 生成 -->
+    </aside>
+
+    <main class="content" id="content">
+      <div class="loading">正在加载课程内容…</div>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/clike/clike.min.js"></script>
+
+  <!-- 课程内容（数据） -->
+  <script src="js/content/content.js"></script>
+  <script src="js/content/ch1.js"></script>
+  <script src="js/content/ch2.js"></script>
+  <script src="js/content/ch3.js"></script>
+  <script src="js/content/ch4.js"></script>
+  <script src="js/content/ch5.js"></script>
+  <script src="js/content/ch6.js"></script>
+  <script src="js/content/ch7.js"></script>
+  <script src="js/content/ch8.js"></script>
+
+  <!-- 应用逻辑 -->
+  <script src="js/app.js"></script>
+</body>
+</html>
