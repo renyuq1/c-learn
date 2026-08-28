@@ -48,6 +48,44 @@ int main() {
     printf("总和 = %d\\n", sum);
     return 0;
 }`, note: '循环累加每个元素。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-4-1-1', title: '读入 5 个数求和', level: 'easy',
+          prompt: '读入 5 个整数存入数组，输出它们的和（末尾换行）。',
+          starter: `#include <stdio.h>
+int main() {
+    int a[5], sum = 0;
+    // 读入 5 个数并求和输出
+    return 0;
+}`,
+          hint: '`for (int i = 0; i < 5; i++) { scanf("%d", &a[i]); sum += a[i]; }`。',
+          tests: [{ stdin: '1 2 3 4 5', expected: '15' }, { stdin: '10 20 30 40 50', expected: '150' }]
+        },
+        {
+          id: 'ex-4-1-2', title: '逆序输出数组', level: 'easy',
+          prompt: '读入 5 个整数存入数组，然后**逆序**输出它们（每个后面一个空格）。',
+          starter: `#include <stdio.h>
+int main() {
+    int a[5];
+    // 读入 5 个数，逆序输出
+    return 0;
+}`,
+          hint: '先读入，再从 `i = 4` 到 `0` 倒着打印 `a[i]`。',
+          tests: [{ stdin: '1 2 3 4 5', expected: '5 4 3 2 1' }, { stdin: '9 8 7 6 5', expected: '5 6 7 8 9' }]
+        },
+        {
+          id: 'ex-4-1-3', title: '求数组最大值', level: 'mid',
+          prompt: '读入 5 个整数存入数组，输出其中的最大值。',
+          starter: `#include <stdio.h>
+int main() {
+    int a[5];
+    // 读入 5 个数，找最大值输出
+    return 0;
+}`,
+          hint: '先假设 `a[0]` 最大，再逐个比较更新。',
+          tests: [{ stdin: '3 9 2 7 5', expected: '9' }, { stdin: '-1 -5 -3 -2 -8', expected: '-1' }]
+        }
       ]
     },
     {
@@ -90,6 +128,44 @@ int main() {
     }
     return 0;
 }`, note: '外层循环每行，内层循环累加该行。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-4-2-1', title: '矩阵元素求和', level: 'easy',
+          prompt: '有一个 `3×3` 矩阵 `{{1,2,3},{4,5,6},{7,8,9}}`，用双重循环求出所有元素之和并输出。',
+          starter: `#include <stdio.h>
+int main() {
+    int a[3][3] = {{1,2,3},{4,5,6},{7,8,9}};
+    // 计算所有元素之和并输出
+    return 0;
+}`,
+          hint: '双重循环累加 `a[i][j]`，1~9 的和是 45。',
+          tests: [{ stdin: '', expected: '45' }]
+        },
+        {
+          id: 'ex-4-2-2', title: '主对角线元素和', level: 'mid',
+          prompt: '求 `3×3` 矩阵 `{{1,2,3},{4,5,6},{7,8,9}}` 的**主对角线**（`i == j`）元素之和。',
+          starter: `#include <stdio.h>
+int main() {
+    int a[3][3] = {{1,2,3},{4,5,6},{7,8,9}};
+    // 计算主对角线元素之和
+    return 0;
+}`,
+          hint: '主对角线是 `a[0][0] + a[1][1] + a[2][2] = 1+5+9 = 15`。',
+          tests: [{ stdin: '', expected: '15' }]
+        },
+        {
+          id: 'ex-4-2-3', title: '打印矩阵', level: 'mid',
+          prompt: '打印 `3×3` 矩阵 `{{1,2,3},{4,5,6},{7,8,9}}`，每行 3 个数、每行结束后换行。',
+          starter: `#include <stdio.h>
+int main() {
+    int a[3][3] = {{1,2,3},{4,5,6},{7,8,9}};
+    // 按 3 行 3 列打印矩阵
+    return 0;
+}`,
+          hint: '内层循环打印 `a[i][j]` 后，外层每轮结束 `printf("\\n");`。',
+          tests: [{ stdin: '', expected: '1 2 3\n4 5 6\n7 8 9' }]
+        }
       ]
     },
     {
@@ -133,6 +209,44 @@ int main() {
     printf("\\n");
     return 0;
 }`, note: '循环到 `\\0` 就停，这就是遍历字符串的标准写法。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-4-3-1', title: '读入并打印字符串', level: 'easy',
+          prompt: '读入一个不含空格的字符串，原样打印它（末尾换行）。',
+          starter: `#include <stdio.h>
+int main() {
+    char s[100];
+    // 读入字符串并打印
+    return 0;
+}`,
+          hint: '`scanf("%s", s);`（字符串不用 `&`），`printf("%s\\n", s);`。',
+          tests: [{ stdin: 'hello', expected: 'hello' }, { stdin: 'world', expected: 'world' }]
+        },
+        {
+          id: 'ex-4-3-2', title: '计算字符串长度', level: 'mid',
+          prompt: '读入一个字符串，用循环数出它的字符个数（遇到 `\\0` 停止），并输出。',
+          starter: `#include <stdio.h>
+int main() {
+    char s[100];
+    // 读入字符串，数出长度输出
+    return 0;
+}`,
+          hint: '`for (int i = 0; s[i] != \'\\0\'; i++)` 计数。',
+          tests: [{ stdin: 'hello', expected: '5' }, { stdin: 'abc', expected: '3' }]
+        },
+        {
+          id: 'ex-4-3-3', title: '打印第一个字符', level: 'easy',
+          prompt: '读入一个字符串，用 `%c` 打印它的第一个字符。',
+          starter: `#include <stdio.h>
+int main() {
+    char s[100];
+    // 读入字符串，打印第一个字符
+    return 0;
+}`,
+          hint: '第一个字符是 `s[0]`，用 `printf("%c\\n", s[0]);`。',
+          tests: [{ stdin: 'hello', expected: 'h' }, { stdin: 'cat', expected: 'c' }]
+        }
       ]
     },
     {
@@ -175,6 +289,47 @@ int main() {
     printf("%s\\n", a);
     return 0;
 }`, note: '先用 strcpy 初始化，再用 strcat 拼接。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-4-4-1', title: '用 strlen 求长度', level: 'easy',
+          prompt: '读入一个字符串，用 `strlen` 求出它的长度并输出（记得 `#include <string.h>`）。',
+          starter: `#include <stdio.h>
+#include <string.h>
+int main() {
+    char s[100];
+    // 读入字符串，用 strlen 求长度输出
+    return 0;
+}`,
+          hint: '`printf("%d\\n", (int)strlen(s));`。',
+          tests: [{ stdin: 'hello', expected: '5' }, { stdin: 'computer', expected: '8' }]
+        },
+        {
+          id: 'ex-4-4-2', title: '用 strcat 拼接', level: 'easy',
+          prompt: '有一个字符串 `char s[50] = "Hello";`，用 `strcat` 在它后面接上 `" World"`，然后打印。',
+          starter: `#include <stdio.h>
+#include <string.h>
+int main() {
+    char s[50] = "Hello";
+    // 用 strcat 拼接并输出
+    return 0;
+}`,
+          hint: '`strcat(s, " World"); printf("%s\\n", s);`。',
+          tests: [{ stdin: '', expected: 'Hello World' }]
+        },
+        {
+          id: 'ex-4-4-3', title: '用 strcmp 比较', level: 'mid',
+          prompt: '读入两个字符串 `a`、`b`，如果相等输出 `相等`，否则输出 `不相等`。',
+          starter: `#include <stdio.h>
+#include <string.h>
+int main() {
+    char a[100], b[100];
+    // 读入两个字符串，判断是否相等
+    return 0;
+}`,
+          hint: '`if (strcmp(a, b) == 0)` 表示相等（注意相等返回 0）。',
+          tests: [{ stdin: 'abc abc', expected: '相等' }, { stdin: 'abc abd', expected: '不相等' }]
+        }
       ]
     },
     {
@@ -225,6 +380,44 @@ int main() {
     printf("最大值是 %d\\n", max);
     return 0;
 }`, note: '先假设第一个是最大，再逐个比较更新。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-4-5-1', title: '线性查找', level: 'easy',
+          prompt: '数组 `int a[] = {3, 7, 2, 9, 5};`，用线性查找找到数字 `9` 的下标并输出。',
+          starter: `#include <stdio.h>
+int main() {
+    int a[] = {3, 7, 2, 9, 5};
+    // 找到 9 的下标并输出
+    return 0;
+}`,
+          hint: '遍历数组，`if (a[i] == 9)` 就打印 `i` 并 `break;`，结果是 3。',
+          tests: [{ stdin: '', expected: '3' }]
+        },
+        {
+          id: 'ex-4-5-2', title: '找最大值', level: 'mid',
+          prompt: '读入 `n`（1 ≤ n ≤ 100），再读入 n 个整数存入数组，输出其中的最大值。',
+          starter: `#include <stdio.h>
+int main() {
+    int n, a[100];
+    // 读入 n 和数组，找最大值输出
+    return 0;
+}`,
+          hint: '先读入 `n` 和数组，假设 `a[0]` 最大，再逐个比较更新。',
+          tests: [{ stdin: '5\n3 9 2 7 5', expected: '9' }, { stdin: '3\n-1 -5 -3', expected: '-1' }]
+        },
+        {
+          id: 'ex-4-5-3', title: '冒泡排序', level: 'hard',
+          prompt: '读入 `n`（1 ≤ n ≤ 100）和 n 个整数，用**冒泡排序**把它们从小到大排好，再输出（每个后面一个空格）。',
+          starter: `#include <stdio.h>
+int main() {
+    int n, a[100];
+    // 读入 n 和数组，冒泡排序后输出
+    return 0;
+}`,
+          hint: '两层循环：外层 `i` 控制轮数，内层 `j` 比较相邻元素，若 `a[j] > a[j+1]` 则交换。',
+          tests: [{ stdin: '5\n5 2 8 1 9', expected: '1 2 5 8 9' }, { stdin: '4\n3 1 4 2', expected: '1 2 3 4' }]
+        }
       ]
     }
   ],

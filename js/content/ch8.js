@@ -49,6 +49,30 @@ int main() {
     printf("已追加\\n");
     return 0;
 }`, note: '追加模式不会清空原内容，只在末尾加。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-8-1-1', title: '写文件', level: 'easy',
+          prompt: '用 `fopen` 以写模式打开 `t.txt`，写入一行文字，`fclose` 关闭后打印 `写入完成`。',
+          starter: `#include <stdio.h>
+int main() {
+    // 打开 t.txt（写模式），写入，关闭，打印"写入完成"
+    return 0;
+}`,
+          hint: '`FILE *fp = fopen("t.txt", "w"); fprintf(fp, "你好\\n"); fclose(fp); printf("写入完成\\n");`。',
+          tests: [{ stdin: '', expected: '写入完成' }]
+        },
+        {
+          id: 'ex-8-1-2', title: '写文件再读回', level: 'mid',
+          prompt: '把 `Hello C` 写入 `out.txt` 并关闭，再以读方式打开，把内容读出来并打印（末尾换行）。',
+          starter: `#include <stdio.h>
+int main() {
+    // 写 "Hello C" 到 out.txt，再读出来打印
+    return 0;
+}`,
+          hint: '先 `fopen("out.txt","w")` 写入并 `fclose`；再 `fopen("out.txt","r")` 用 `fgets` 读，`printf` 出来。',
+          tests: [{ stdin: '', expected: 'Hello C' }]
+        }
       ]
     },
     {
@@ -114,6 +138,30 @@ int main() {
     printf("复制完成\\n");
     return 0;
 }`, note: '从 a.txt 读，写到 b.txt，实现文件复制。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-8-2-1', title: '用 fputs/fgets 读写字符串', level: 'mid',
+          prompt: '用 `fputs` 把 `第一行`、`第二行` 两行写入文件，再重新打开用 `fgets` 逐行读出来打印。',
+          starter: `#include <stdio.h>
+int main() {
+    // 用 fputs 写两行，再 fgets 读回来打印
+    return 0;
+}`,
+          hint: '写 `fputs("第一行\\n", fp); fputs("第二行\\n", fp);`，读 `while (fgets(line, 100, fp)) printf("%s", line);`。',
+          tests: [{ stdin: '', expected: '第一行\n第二行' }]
+        },
+        {
+          id: 'ex-8-2-2', title: '用 fputc/fgetc 读写字符', level: 'mid',
+          prompt: '用 `fputc` 依次写入字符 `A`、`B`、`C`，再重新打开用 `fgetc` 逐个读出来打印。',
+          starter: `#include <stdio.h>
+int main() {
+    // 用 fputc 写 "ABC"，再 fgetc 读回来打印
+    return 0;
+}`,
+          hint: '写 `fputc(\'A\', fp); fputc(\'B\', fp); fputc(\'C\', fp);`，读 `while ((c = fgetc(fp)) != EOF) printf("%c", c);`。',
+          tests: [{ stdin: '', expected: 'ABC' }]
+        }
       ]
     },
     {
@@ -179,6 +227,31 @@ int main() {
     printf("%d %.1f\\n", s2.id, s2.score);
     return 0;
 }`, note: '结构体也能整体读写。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-8-3-1', title: '用 fprintf/fscanf 格式化读写', level: 'mid',
+          prompt: '用 `fprintf` 把整数 `100` 和小数 `3.14` 写入文件，再重新打开用 `fscanf` 读回并打印（`%d` 和 `%.2f`）。',
+          starter: `#include <stdio.h>
+int main() {
+    // 用 fprintf 写 "100 3.14"，再用 fscanf 读回来打印
+    return 0;
+}`,
+          hint: '写 `fprintf(fp, "%d %.2f\\n", 100, 3.14);`，读 `fscanf(fp, "%d %lf", &n, &f); printf("%d %.2f\\n", n, f);`。',
+          tests: [{ stdin: '', expected: '100 3.14' }]
+        },
+        {
+          id: 'ex-8-3-2', title: '用 fwrite/fread 读写数组', level: 'mid',
+          prompt: '用 `fwrite` 把 `int a[5] = {1, 2, 3, 4, 5};` 以二进制写入文件，再重新打开用 `fread` 读回并打印。',
+          starter: `#include <stdio.h>
+int main() {
+    int a[5] = {1, 2, 3, 4, 5};
+    // 用 fwrite 二进制写入，再 fread 读回并打印
+    return 0;
+}`,
+          hint: '写 `fwrite(a, sizeof(int), 5, fp);`（模式 "wb"），读 `fread(b, sizeof(int), 5, fp);`（模式 "rb"），再循环打印。',
+          tests: [{ stdin: '', expected: '1 2 3 4 5' }]
+        }
       ]
     },
     {
@@ -231,6 +304,30 @@ int main() {
     printf("文件大小：%ld 字节\\n", size);
     return 0;
 }`, note: '移到末尾再用 ftell，就能得到文件大小。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-8-4-1', title: '用 fseek 定位读字符', level: 'mid',
+          prompt: '把字符串 `abcdefghij` 写入文件，再重新打开，用 `fseek` 跳到第 5 个字节，读取并打印那个字符。',
+          starter: `#include <stdio.h>
+int main() {
+    // 写 "abcdefghij" 到 t.txt，再 fseek 到第 5 个字节读一个字符打印
+    return 0;
+}`,
+          hint: '写好后 `fseek(fp, 5, SEEK_SET);` 再 `c = fgetc(fp); printf("%c\\n", c);`，第 5 个字符是 f。',
+          tests: [{ stdin: '', expected: 'f' }]
+        },
+        {
+          id: 'ex-8-4-2', title: '用 ftell 求文件大小', level: 'mid',
+          prompt: '把 `hello world` 写入文件，用 `fseek` 移到末尾 + `ftell` 求出文件大小（字节数）并输出。',
+          starter: `#include <stdio.h>
+int main() {
+    // 写 "hello world" 到 t.txt，用 fseek + ftell 求文件大小输出
+    return 0;
+}`,
+          hint: '`fseek(fp, 0, SEEK_END);` 移到末尾，`long size = ftell(fp);` 就是大小（11），`printf("%ld\\n", size);`。',
+          tests: [{ stdin: '', expected: '11' }]
+        }
       ]
     }
   ],

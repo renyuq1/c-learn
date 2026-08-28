@@ -10,6 +10,13 @@
      id, title,
      lesson:  [ block, ... ],              // 讲解内容块
      examples: [ { title, code, note? } ], // 可运行示例
+     exercises: [ exercise, ... ]          // 小节练习（编程题，自动判题）
+   }
+
+   exercise（小节练习，无参考答案，靠提示 + 自动判题）= {
+     id, title, level:"easy"|"mid"|"hard",
+     prompt, starter, hint?,
+     tests: [ { stdin:"", expected:".." } ]   // 按 stdout 比较（trim 后）
    }
 
    block 类型（lesson 里的内容块）：

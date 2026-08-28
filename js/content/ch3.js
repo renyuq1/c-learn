@@ -46,6 +46,32 @@ int main() {
     }
     return 0;
 }`, note: '试试把 `n` 的值改成正数再看结果。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-3-1-1', title: '判断正负', level: 'easy',
+          prompt: '读入一个整数 `n`，如果 `n >= 0` 输出 `非负数`，否则输出 `负数`。',
+          starter: `#include <stdio.h>
+int main() {
+    int n;
+    // 读入 n 并判断正负
+    return 0;
+}`,
+          hint: '`scanf("%d", &n);` 后用 `if (n >= 0) ... else ...` 判断。',
+          tests: [{ stdin: '5', expected: '非负数' }, { stdin: '-3', expected: '负数' }]
+        },
+        {
+          id: 'ex-3-1-2', title: '判断奇偶', level: 'easy',
+          prompt: '读入一个整数 `n`，如果是偶数输出 `偶数`，否则输出 `奇数`。',
+          starter: `#include <stdio.h>
+int main() {
+    int n;
+    // 读入 n 并判断奇偶
+    return 0;
+}`,
+          hint: '偶数判断条件：`n % 2 == 0`。',
+          tests: [{ stdin: '4', expected: '偶数' }, { stdin: '7', expected: '奇数' }]
+        }
       ]
     },
     {
@@ -100,6 +126,44 @@ int main() {
     }
     return 0;
 }`, note: '改改 `n` 的值，观察三种情况。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-3-2-1', title: '成绩等级', level: 'easy',
+          prompt: '读入一个成绩 `score`，按规则输出：`>=90` 优秀、`>=80` 良好、`>=60` 及格，其余 `不及格`。',
+          starter: `#include <stdio.h>
+int main() {
+    int score;
+    // 读入 score 并输出等级
+    return 0;
+}`,
+          hint: '用 `if ... else if ... else` 串起来，注意从大到小判断。',
+          tests: [{ stdin: '85', expected: '良好' }, { stdin: '95', expected: '优秀' }, { stdin: '50', expected: '不及格' }]
+        },
+        {
+          id: 'ex-3-2-2', title: '判断正负零', level: 'mid',
+          prompt: '读入一个整数 `n`，输出 `正数`、`负数` 或 `零`。',
+          starter: `#include <stdio.h>
+int main() {
+    int n;
+    // 读入 n，分三种情况输出
+    return 0;
+}`,
+          hint: '先判断 `n > 0`，再 `else if (n < 0)`，最后 `else` 就是零。',
+          tests: [{ stdin: '0', expected: '零' }, { stdin: '-5', expected: '负数' }, { stdin: '8', expected: '正数' }]
+        },
+        {
+          id: 'ex-3-2-3', title: '三个数的最大值', level: 'mid',
+          prompt: '读入三个整数 `a`、`b`、`c`，输出其中最大的一个。',
+          starter: `#include <stdio.h>
+int main() {
+    int a, b, c;
+    // 读入三个数并输出最大值
+    return 0;
+}`,
+          hint: '先假设 `a` 最大，再依次和 `b`、`c` 比较更新。',
+          tests: [{ stdin: '3 9 5', expected: '9' }, { stdin: '10 2 8', expected: '10' }]
+        }
       ]
     },
     {
@@ -142,6 +206,32 @@ int main() {
     }
     return 0;
 }`, note: '试试把 `choice` 改成 1、3 或其它数字。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-3-3-1', title: '星期几', level: 'easy',
+          prompt: '读入一个整数 `day`（1~7），用 `switch` 输出：1~5 对应 `星期一`~`星期五`，6、7 或其它输出 `周末`。',
+          starter: `#include <stdio.h>
+int main() {
+    int day;
+    // 读入 day，用 switch 输出星期
+    return 0;
+}`,
+          hint: '每个 `case` 后面要写 `break;`，其余情况用 `default:`。',
+          tests: [{ stdin: '3', expected: '星期三' }, { stdin: '6', expected: '周末' }]
+        },
+        {
+          id: 'ex-3-3-2', title: '判断季节', level: 'mid',
+          prompt: '读入月份 `m`（1~4），用 `switch` 输出季节：1 春、2 夏、3 秋、4 冬。',
+          starter: `#include <stdio.h>
+int main() {
+    int m;
+    // 读入 m，用 switch 输出季节
+    return 0;
+}`,
+          hint: '`case 1: printf("春\\n"); break;` 依次类推。',
+          tests: [{ stdin: '2', expected: '夏' }, { stdin: '4', expected: '冬' }]
+        }
       ]
     },
     {
@@ -191,6 +281,32 @@ int main() {
     printf("1 到 100 的和是 %d\\n", sum);
     return 0;
 }`, note: '经典的累加求和，结果是 5050。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-3-4-1', title: '累加 1 到 n', level: 'easy',
+          prompt: '读入一个正整数 `n`，用 `while` 循环计算并输出 `1 + 2 + ... + n` 的和。',
+          starter: `#include <stdio.h>
+int main() {
+    int n, i = 1, sum = 0;
+    // 读入 n，用 while 累加
+    return 0;
+}`,
+          hint: '`while (i <= n) { sum += i; i++; }`，最后 `printf("%d\\n", sum);`。',
+          tests: [{ stdin: '100', expected: '5050' }, { stdin: '10', expected: '55' }]
+        },
+        {
+          id: 'ex-3-4-2', title: '打印 1 到 n', level: 'mid',
+          prompt: '读入正整数 `n`，用 `while` 循环在一行打印出 `1` 到 `n`（每个数后面一个空格）。',
+          starter: `#include <stdio.h>
+int main() {
+    int n, i = 1;
+    // 读入 n，用 while 打印 1..n
+    return 0;
+}`,
+          hint: '循环里 `printf("%d ", i);`，循环结束后再 `printf("\\n");`。',
+          tests: [{ stdin: '5', expected: '1 2 3 4 5' }, { stdin: '3', expected: '1 2 3' }]
+        }
       ]
     },
     {
@@ -230,6 +346,44 @@ int main() {
     }
     return 0;
 }`, note: '运行看看输出。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-3-5-1', title: '用 for 求 1 到 n 的和', level: 'easy',
+          prompt: '读入正整数 `n`，用 `for` 循环计算并输出 `1 + 2 + ... + n` 的和。',
+          starter: `#include <stdio.h>
+int main() {
+    int n, sum = 0;
+    // 读入 n，用 for 累加
+    return 0;
+}`,
+          hint: '`for (int i = 1; i <= n; i++) sum += i;`。',
+          tests: [{ stdin: '10', expected: '55' }, { stdin: '100', expected: '5050' }]
+        },
+        {
+          id: 'ex-3-5-2', title: '打印 2 到 n 的偶数', level: 'mid',
+          prompt: '读入正整数 `n`，用 `for` 循环打印 `2`、`4`、`6`…所有不超过 `n` 的偶数（每个后面一个空格）。',
+          starter: `#include <stdio.h>
+int main() {
+    int n;
+    // 读入 n，打印偶数
+    return 0;
+}`,
+          hint: '`for (int i = 2; i <= n; i += 2) printf("%d ", i);`。',
+          tests: [{ stdin: '10', expected: '2 4 6 8 10' }, { stdin: '7', expected: '2 4 6' }]
+        },
+        {
+          id: 'ex-3-5-3', title: '求平方和', level: 'mid',
+          prompt: '读入正整数 `n`，输出 `1² + 2² + ... + n²` 的值。',
+          starter: `#include <stdio.h>
+int main() {
+    int n, sum = 0;
+    // 读入 n，累加 i*i
+    return 0;
+}`,
+          hint: '循环里 `sum += i * i;`。',
+          tests: [{ stdin: '3', expected: '14' }, { stdin: '5', expected: '55' }]
+        }
       ]
     },
     {
@@ -286,6 +440,43 @@ int main() {
     }
     return 0;
 }`, note: '外层控制行数，内层控制每行打印几个星号。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-3-6-1', title: '累加直到输入 0', level: 'mid',
+          prompt: '循环读入整数，把它们累加起来；当读到 `0` 时停止（`break`），输出累加结果。',
+          starter: `#include <stdio.h>
+int main() {
+    int x, sum = 0;
+    // 循环读入，遇到 0 就 break，最后输出 sum
+    return 0;
+}`,
+          hint: '用 `while (1)` 或 `while (scanf(...) == 1)`，读到 0 就 `break;`。',
+          tests: [{ stdin: '1 2 3 0', expected: '6' }, { stdin: '10 20 30 0', expected: '60' }]
+        },
+        {
+          id: 'ex-3-6-2', title: '用 continue 跳过 3', level: 'mid',
+          prompt: '用循环打印 `1` 到 `6`，但跳过数字 `3`（用 `continue`）。',
+          starter: `#include <stdio.h>
+int main() {
+    // 打印 1 到 6，跳过 3
+    return 0;
+}`,
+          hint: '`for (int i = 1; i <= 6; i++)`，`if (i == 3) continue;`，再打印。',
+          tests: [{ stdin: '', expected: '1 2 4 5 6' }]
+        },
+        {
+          id: 'ex-3-6-3', title: '打印星号三角形', level: 'hard',
+          prompt: '读入正整数 `n`，用嵌套循环打印一个直角三角形：第 1 行 1 个 `*`，第 2 行 2 个 `*`，直到第 n 行 n 个 `*`。',
+          starter: `#include <stdio.h>
+int main() {
+    int n;
+    // 读入 n，打印三角形
+    return 0;
+}`,
+          hint: '外层 `for (i=1; i<=n; i++)` 控制行，内层 `for (j=1; j<=i; j++) printf("*")`，每行结束 `printf("\\n")`。',
+          tests: [{ stdin: '3', expected: '*\n**\n***' }, { stdin: '5', expected: '*\n**\n***\n****\n*****' }]
+        }
       ]
     }
   ],

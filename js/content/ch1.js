@@ -26,6 +26,30 @@ int main() {
     printf("这是一个 C 程序");
     return 0;
 }`, note: '点击「运行」，看看会发生什么。现在不用理解每一行，先有个印象。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-1-1-1', title: '打印一句话', level: 'easy',
+          prompt: '写一个完整的 C 程序，打印出 `这是用 C 语言写的程序`（末尾换行）。',
+          starter: `#include <stdio.h>
+int main() {
+    // 在这里写你的代码
+    return 0;
+}`,
+          hint: '用 `printf("这是用 C 语言写的程序\\n");` 打印。',
+          tests: [{ stdin: '', expected: '这是用 C 语言写的程序' }]
+        },
+        {
+          id: 'ex-1-1-2', title: '打印两行', level: 'easy',
+          prompt: '写一个程序，用两个 `printf` 依次打印两行：第一行 `第一行`，第二行 `第二行`。',
+          starter: `#include <stdio.h>
+int main() {
+    // 打印两行
+    return 0;
+}`,
+          hint: '两行分别写成两个 `printf(...)`，每个末尾都加 `\\n`。',
+          tests: [{ stdin: '', expected: '第一行\n第二行' }]
+        }
       ]
     },
     {
@@ -57,6 +81,30 @@ int main() {
     }
     return 0;
 }`, note: '这就是「选择结构」：条件 `score >= 60` 成立就打印「及格了」。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-1-2-1', title: '顺序结构打印三行', level: 'easy',
+          prompt: '程序按顺序一步步执行。请写一个程序，用三次 `printf` 依次打印三行：`开始`、`执行`、`结束`。',
+          starter: `#include <stdio.h>
+int main() {
+    // 依次打印三行
+    return 0;
+}`,
+          hint: '三次 `printf` 分别打印三行，每个末尾都加 `\\n`。',
+          tests: [{ stdin: '', expected: '开始\n执行\n结束' }]
+        },
+        {
+          id: 'ex-1-2-2', title: '打印一条分隔线', level: 'easy',
+          prompt: '写一个程序，打印一行由 10 个短横线 `-` 组成的分隔线。',
+          starter: `#include <stdio.h>
+int main() {
+    // 打印分隔线
+    return 0;
+}`,
+          hint: '直接 `printf("----------\\n");`。',
+          tests: [{ stdin: '', expected: '----------' }]
+        }
       ]
     },
     {
@@ -74,7 +122,31 @@ int main() {
         { t: 'p', x: '其中 `gcc` 是最常用的 C 编译器，本网站在线编译用的就是它。你现在只要记住：**写代码 → 编译 → 运行** 这三步即可。' },
         { t: 'note', x: '本网站用免费在线编译器（Wandbox）运行 C 代码，需要联网。如果断网，「运行」会提示失败，但你依然可以查看讲解和参考答案。' }
       ],
-      examples: []
+      examples: [],
+      exercises: [
+        {
+          id: 'ex-1-3-1', title: '打印一条消息', level: 'easy',
+          prompt: '写一个程序，打印出 `开发环境已就绪`（末尾换行）。',
+          starter: `#include <stdio.h>
+int main() {
+    // 在这里写你的代码
+    return 0;
+}`,
+          hint: '用 `printf("开发环境已就绪\\n");`。',
+          tests: [{ stdin: '', expected: '开发环境已就绪' }]
+        },
+        {
+          id: 'ex-1-3-2', title: '打印三行', level: 'easy',
+          prompt: '写一个程序，依次打印三行：`写代码`、`编译`、`运行`。',
+          starter: `#include <stdio.h>
+int main() {
+    // 依次打印三行
+    return 0;
+}`,
+          hint: '三个 `printf`，每个末尾都带 `\\n`。',
+          tests: [{ stdin: '', expected: '写代码\n编译\n运行' }]
+        }
+      ]
     },
     {
       id: '1-4',
@@ -106,6 +178,41 @@ int main() {
     printf("正在学 C 语言\\n");
     return 0;
 }`, note: '把名字换成你自己的，再运行一次。每个 `printf` 打印一行。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-1-4-1', title: '打印 Hello, World!', level: 'easy',
+          prompt: '写一个程序打印出 `Hello, World!`（注意大小写、逗号和空格，末尾换行）。',
+          starter: `#include <stdio.h>
+int main() {
+    // 在这里写你的代码
+    return 0;
+}`,
+          hint: '`printf("Hello, World!\\n");`。',
+          tests: [{ stdin: '', expected: 'Hello, World!' }]
+        },
+        {
+          id: 'ex-1-4-2', title: '打印自己的名字', level: 'easy',
+          prompt: '写一个程序打印出 `我叫小明`（可以把「小明」换成你自己的名字）。',
+          starter: `#include <stdio.h>
+int main() {
+    // 打印你的名字
+    return 0;
+}`,
+          hint: '`printf("我叫小明\\n");`。',
+          tests: [{ stdin: '', expected: '我叫小明' }]
+        },
+        {
+          id: 'ex-1-4-3', title: '用换行符打印两行', level: 'easy',
+          prompt: '写一个程序，用 `\\n` 让输出换行，先打印 `Hello` 再打印 `World`（两行）。',
+          starter: `#include <stdio.h>
+int main() {
+    // 打印两行
+    return 0;
+}`,
+          hint: '在一个 `printf` 里写 `printf("Hello\\nWorld\\n");` 也可以。',
+          tests: [{ stdin: '', expected: 'Hello\nWorld' }]
+        }
       ]
     },
     {
@@ -132,6 +239,30 @@ int main() {
     printf("这行是对的\\n")
     return 0;
 }`, note: '运行看看报错信息长什么样（少了分号）。然后试着把错误改对。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-1-5-1', title: '补上缺失的分号', level: 'easy',
+          prompt: '下面的程序少了一个分号，导致编译报错。请补上分号，让它正常打印出 `你好`。',
+          starter: `#include <stdio.h>
+int main() {
+    printf("你好\\n")
+    return 0;
+}`,
+          hint: 'C 语言每条语句结尾都要有分号 `;`。在 `printf(...)` 那一行末尾加上。',
+          tests: [{ stdin: '', expected: '你好' }]
+        },
+        {
+          id: 'ex-1-5-2', title: '打印一条问候语', level: 'easy',
+          prompt: '写一个程序，打印出 `开始学 C 语言`（末尾换行）。',
+          starter: `#include <stdio.h>
+int main() {
+    // 在这里写你的代码
+    return 0;
+}`,
+          hint: '`printf("开始学 C 语言\\n");`。',
+          tests: [{ stdin: '', expected: '开始学 C 语言' }]
+        }
       ]
     }
   ],

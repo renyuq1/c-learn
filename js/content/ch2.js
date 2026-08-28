@@ -48,6 +48,30 @@ int main() {
     printf("今天开始学 C 语言\\n");
     return 0;
 }`, note: '注释不会影响程序运行，可以放心写。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-2-1-1', title: '打印一句话并加注释', level: 'easy',
+          prompt: '写一个程序，打印出 `学习 C 语言`，并加一条单行注释 `// 我的程序`。',
+          starter: `#include <stdio.h>
+int main() {
+    // 在这里写你的代码
+    return 0;
+}`,
+          hint: '注释用 `//` 开头，不影响运行；打印用 `printf("学习 C 语言\\n");`。',
+          tests: [{ stdin: '', expected: '学习 C 语言' }]
+        },
+        {
+          id: 'ex-2-1-2', title: '打印两行', level: 'easy',
+          prompt: '写一个程序，先打印 `你好`，再打印 `世界`（两行）。',
+          starter: `#include <stdio.h>
+int main() {
+    // 打印两行
+    return 0;
+}`,
+          hint: '两个 `printf`，每个末尾加 `\\n`。',
+          tests: [{ stdin: '', expected: '你好\n世界' }]
+        }
       ]
     },
     {
@@ -90,6 +114,41 @@ int main() {
     printf("%d + %d = %d\\n", a, b, sum);
     return 0;
 }`, note: '`%d` 是「占位符」，运行时会替换成后面变量的值。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-2-2-1', title: '声明变量并打印', level: 'easy',
+          prompt: '声明一个整型变量 `age`，赋值为 `18`，然后用 `%d` 打印它的值（末尾换行）。',
+          starter: `#include <stdio.h>
+int main() {
+    // 声明 age 并打印
+    return 0;
+}`,
+          hint: '`int age = 18;` 然后 `printf("%d\\n", age);`。',
+          tests: [{ stdin: '', expected: '18' }]
+        },
+        {
+          id: 'ex-2-2-2', title: '两个变量相加', level: 'easy',
+          prompt: '声明两个整型变量 `a = 10`、`b = 20`，打印它们的和 `a + b`。',
+          starter: `#include <stdio.h>
+int main() {
+    // 声明 a、b 并打印 a+b
+    return 0;
+}`,
+          hint: '`int a = 10, b = 20;` 然后 `printf("%d\\n", a + b);`。',
+          tests: [{ stdin: '', expected: '30' }]
+        },
+        {
+          id: 'ex-2-2-3', title: '用 const 定义常量', level: 'mid',
+          prompt: '用 `const` 定义一个整型常量 `DAYS = 7`，并打印它。',
+          starter: `#include <stdio.h>
+int main() {
+    // 用 const 定义 DAYS 并打印
+    return 0;
+}`,
+          hint: '`const int DAYS = 7;` 然后 `printf("%d\\n", DAYS);`。',
+          tests: [{ stdin: '', expected: '7' }]
+        }
       ]
     },
     {
@@ -127,6 +186,41 @@ int main() {
     printf("半径 %.2f 的圆面积约 %.2f\\n", r, area);
     return 0;
 }`, note: '`%.2f` 表示小数只保留 2 位。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-2-3-1', title: '打印整数和字符', level: 'easy',
+          prompt: '声明整型变量 `n = 42` 和字符变量 `c = \'A\'`，用一行打印它们（中间一个空格）。',
+          starter: `#include <stdio.h>
+int main() {
+    // 打印 n 和 c
+    return 0;
+}`,
+          hint: '整数用 `%d`，字符用 `%c`：`printf("%d %c\\n", n, c);`。',
+          tests: [{ stdin: '', expected: '42 A' }]
+        },
+        {
+          id: 'ex-2-3-2', title: '打印小数', level: 'easy',
+          prompt: '声明一个 `double` 变量 `pi = 3.14`，用 `%.2f` 打印它（保留两位小数）。',
+          starter: `#include <stdio.h>
+int main() {
+    // 打印 pi
+    return 0;
+}`,
+          hint: '`double pi = 3.14;` 然后 `printf("%.2f\\n", pi);`。',
+          tests: [{ stdin: '', expected: '3.14' }]
+        },
+        {
+          id: 'ex-2-3-3', title: '求圆的面积', level: 'mid',
+          prompt: '声明 `double pi = 3.14159` 和半径 `r = 2.5`，计算面积 `pi * r * r`，用 `%.2f` 输出（保留两位小数）。',
+          starter: `#include <stdio.h>
+int main() {
+    // 计算并打印圆的面积
+    return 0;
+}`,
+          hint: '`double area = pi * r * r;` 然后 `printf("%.2f\\n", area);`，结果是 19.63。',
+          tests: [{ stdin: '', expected: '19.63' }]
+        }
       ]
     },
     {
@@ -165,6 +259,41 @@ int main() {
     printf("%d\\n", 7 % 3);     // 取余，结果 1
     return 0;
 }`, note: '注意第一行和第三行的区别：`/` 是除，`%` 是取余。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-2-4-1', title: '取余运算', level: 'easy',
+          prompt: '写一个程序，打印 `17 % 5` 的结果（`%` 是取余）。',
+          starter: `#include <stdio.h>
+int main() {
+    // 打印 17 % 5 的结果
+    return 0;
+}`,
+          hint: '`printf("%d\\n", 17 % 5);`，17 除以 5 余 2。',
+          tests: [{ stdin: '', expected: '2' }]
+        },
+        {
+          id: 'ex-2-4-2', title: '整数除法', level: 'easy',
+          prompt: '写一个程序，打印 `7 / 2` 的结果（注意：整数相除会丢掉小数部分）。',
+          starter: `#include <stdio.h>
+int main() {
+    // 打印 7 / 2 的结果
+    return 0;
+}`,
+          hint: '`printf("%d\\n", 7 / 2);`，整数除法结果是 3。',
+          tests: [{ stdin: '', expected: '3' }]
+        },
+        {
+          id: 'ex-2-4-3', title: '自增运算', level: 'easy',
+          prompt: '声明 `int a = 5;`，用自增 `a++` 让它加 1，再打印 `a`。',
+          starter: `#include <stdio.h>
+int main() {
+    // 声明 a，自增，打印
+    return 0;
+}`,
+          hint: '`int a = 5; a++; printf("%d\\n", a);`，结果 6。',
+          tests: [{ stdin: '', expected: '6' }]
+        }
       ]
     },
     {
@@ -202,6 +331,41 @@ int main() {
     printf("平均分 = %.2f\\n", avg);
     return 0;
 }`, note: '除以 `3.0` 而不是 `3`，结果才是小数。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-2-5-1', title: '强制类型转换', level: 'easy',
+          prompt: '声明 `int a = 5, b = 2;`，用强制转换 `(double)` 计算并打印 `a / b`（保留 1 位小数）。',
+          starter: `#include <stdio.h>
+int main() {
+    // 强制转换成 double 再相除
+    return 0;
+}`,
+          hint: '`printf("%.1f\\n", (double)a / b);`，结果是 2.5。',
+          tests: [{ stdin: '', expected: '2.5' }]
+        },
+        {
+          id: 'ex-2-5-2', title: '小数转整数会截断', level: 'easy',
+          prompt: '写一个程序，打印 `(int)3.9` 的结果（注意：转整数是直接截断，不是四舍五入）。',
+          starter: `#include <stdio.h>
+int main() {
+    // 打印 (int)3.9
+    return 0;
+}`,
+          hint: '`printf("%d\\n", (int)3.9);`，结果是 3。',
+          tests: [{ stdin: '', expected: '3' }]
+        },
+        {
+          id: 'ex-2-5-3', title: '求平均分', level: 'mid',
+          prompt: '三门课成绩是 `90`、`85`、`95`，计算平均分并用 `%.2f` 输出（保留两位小数）。',
+          starter: `#include <stdio.h>
+int main() {
+    // 计算平均分并打印
+    return 0;
+}`,
+          hint: '除以 `3.0` 而不是 `3`，结果才是小数：`printf("%.2f\\n", (90 + 85 + 95) / 3.0);`。',
+          tests: [{ stdin: '', expected: '90.00' }]
+        }
       ]
     },
     {
@@ -247,6 +411,44 @@ int main() {
     printf("%d + %d = %d\\n", x, y, x + y);
     return 0;
 }`, note: '点运行后，在输入框填两个整数（如 `3 5`）再运行。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-2-6-1', title: '两数之和', level: 'easy',
+          prompt: '从标准输入读入两个整数 `a` 和 `b`（用空格隔开），输出它们的和（末尾换行）。',
+          starter: `#include <stdio.h>
+int main() {
+    int a, b;
+    // 读入 a、b 并输出 a+b
+    return 0;
+}`,
+          hint: '`scanf("%d %d", &a, &b);` 读入（注意 `&`），再 `printf("%d\\n", a + b);`。',
+          tests: [{ stdin: '3 5', expected: '8' }, { stdin: '10 20', expected: '30' }]
+        },
+        {
+          id: 'ex-2-6-2', title: '求平方', level: 'easy',
+          prompt: '读入一个整数 `n`，输出它的平方 `n * n`（末尾换行）。',
+          starter: `#include <stdio.h>
+int main() {
+    int n;
+    // 读入 n 并输出 n*n
+    return 0;
+}`,
+          hint: '`scanf("%d", &n);` 然后 `printf("%d\\n", n * n);`。',
+          tests: [{ stdin: '6', expected: '36' }, { stdin: '9', expected: '81' }]
+        },
+        {
+          id: 'ex-2-6-3', title: '输出和与差', level: 'mid',
+          prompt: '读入两个整数 `a`、`b`，在一行输出它们的和与差（和在前，中间一个空格）。',
+          starter: `#include <stdio.h>
+int main() {
+    int a, b;
+    // 读入 a、b，输出 a+b 和 a-b
+    return 0;
+}`,
+          hint: '`printf("%d %d\\n", a + b, a - b);`。',
+          tests: [{ stdin: '10 4', expected: '14 6' }, { stdin: '8 3', expected: '11 5' }]
+        }
       ]
     }
   ],

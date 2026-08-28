@@ -59,6 +59,43 @@ int main() {
     printf("点坐标：(%.1f, %.1f)\\n", p.x, p.y);
     return 0;
 }`, note: '结构体可以表示任何「复合数据」。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-7-1-1', title: '学生结构体', level: 'easy',
+          prompt: '定义一个结构体 `Student`，包含姓名（字符串）和成绩（整数）。读入一个学生的姓名和成绩，输出 `姓名 成绩`。',
+          starter: `#include <stdio.h>
+
+struct Student {
+    char name[20];
+    int score;
+};
+
+int main() {
+    struct Student s;
+    // 读入姓名和成绩并输出
+    return 0;
+}`,
+          hint: '`scanf("%s %d", s.name, &s.score);`（字符串不加 `&`），`printf("%s %d\\n", s.name, s.score);`。',
+          tests: [{ stdin: 'Tom 88', expected: 'Tom 88' }, { stdin: 'Alice 95', expected: 'Alice 95' }]
+        },
+        {
+          id: 'ex-7-1-2', title: '点结构体', level: 'easy',
+          prompt: '定义一个结构体 `Point`（含 `x`、`y`），初始化 `{3, 4}`，打印 `x` 和 `y`（中间一个空格）。',
+          starter: `#include <stdio.h>
+
+struct Point {
+    int x;
+    int y;
+};
+
+int main() {
+    // 定义并初始化 Point 为 {3, 4}，打印
+    return 0;
+}`,
+          hint: '`struct Point p = {3, 4}; printf("%d %d\\n", p.x, p.y);`。',
+          tests: [{ stdin: '', expected: '3 4' }]
+        }
       ]
     },
     {
@@ -119,6 +156,46 @@ int main() {
     printf("最高分：%s %d\\n", best->name, best->score);
     return 0;
 }`, note: '用结构体指针记录当前最高分的学生。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-7-2-1', title: '结构体数组求成绩和', level: 'easy',
+          prompt: '有一个 3 名学生的结构体数组，成绩分别是 85、92、78。求出三人成绩之和并输出。',
+          starter: `#include <stdio.h>
+
+struct Student {
+    char name[20];
+    int score;
+};
+
+int main() {
+    struct Student s[3] = {
+        {"小明", 85}, {"小红", 92}, {"小刚", 78}
+    };
+    // 求出三人成绩之和并输出
+    return 0;
+}`,
+          hint: '循环累加 `s[i].score`，85 + 92 + 78 = 255。',
+          tests: [{ stdin: '', expected: '255' }]
+        },
+        {
+          id: 'ex-7-2-2', title: '用结构体指针访问成员', level: 'mid',
+          prompt: '结构体 `struct Student s = {"小明", 20};`，用结构体指针 `p` 和箭头 `->` 访问成员，输出 `小明 20`。',
+          starter: `#include <stdio.h>
+
+struct Student {
+    char name[20];
+    int age;
+};
+
+int main() {
+    struct Student s = {"小明", 20};
+    // 用结构体指针 p 访问成员并输出
+    return 0;
+}`,
+          hint: '`struct Student *p = &s; printf("%s %d\\n", p->name, p->age);`。',
+          tests: [{ stdin: '', expected: '小明 20' }]
+        }
       ]
     },
     {
@@ -184,6 +261,39 @@ int main() {
     printf("%s %d\\n", p.name, p.age);
     return 0;
 }`, note: 'typedef 后定义变量更方便。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-7-3-1', title: '用 typedef 定义结构体', level: 'easy',
+          prompt: '用 `typedef` 把结构体起名为 `Point`（含 `x`、`y`），定义变量 `p = {1, 2}` 并打印。',
+          starter: `#include <stdio.h>
+
+typedef struct {
+    int x;
+    int y;
+} Point;
+
+int main() {
+    // 用 Point 定义变量 p = {1, 2} 并打印
+    return 0;
+}`,
+          hint: '`Point p = {1, 2}; printf("%d %d\\n", p.x, p.y);`。',
+          tests: [{ stdin: '', expected: '1 2' }]
+        },
+        {
+          id: 'ex-7-3-2', title: '枚举的值', level: 'easy',
+          prompt: '枚举 `enum Week { MON = 1, TUE, WED, THU, FRI };`，定义 `today = WED` 并打印它的值。',
+          starter: `#include <stdio.h>
+
+enum Week { MON = 1, TUE, WED, THU, FRI };
+
+int main() {
+    // 定义 today = WED 并打印它的值
+    return 0;
+}`,
+          hint: '`enum Week today = WED; printf("%d\\n", today);`，WED 的值是 3。',
+          tests: [{ stdin: '', expected: '3' }]
+        }
       ]
     },
     {
@@ -236,6 +346,34 @@ int main() {
     free(a);
     return 0;
 }`, note: '用 malloc 动态创建数组，用完 free 释放。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-7-4-1', title: '动态分配数组并求和', level: 'mid',
+          prompt: '读入 `n`（1 ≤ n ≤ 100），用 `malloc` 动态分配一个 int 数组，读入 n 个数后求它们的和并输出，最后 `free` 释放。',
+          starter: `#include <stdio.h>
+#include <stdlib.h>
+int main() {
+    int n;
+    // 读入 n，malloc 分配，读入并求和输出，最后 free
+    return 0;
+}`,
+          hint: '`int *a = (int*)malloc(n * sizeof(int));` 分配，循环读入累加，最后 `free(a);`。',
+          tests: [{ stdin: '5\n1 2 3 4 5', expected: '15' }, { stdin: '3\n10 20 30', expected: '60' }]
+        },
+        {
+          id: 'ex-7-4-2', title: '动态分配并逆序输出', level: 'mid',
+          prompt: '读入 `n`（1 ≤ n ≤ 100），用 `malloc` 分配数组并读入 n 个数，**逆序**输出它们，最后 `free`。',
+          starter: `#include <stdio.h>
+#include <stdlib.h>
+int main() {
+    int n;
+    // 读入 n，malloc 分配，读入后逆序输出，最后 free
+    return 0;
+}`,
+          hint: '分配后循环读入，再 `for (int i = n - 1; i >= 0; i--) printf("%d ", a[i]);`，最后 `free(a);`。',
+          tests: [{ stdin: '3\n10 20 30', expected: '30 20 10' }, { stdin: '4\n1 2 3 4', expected: '4 3 2 1' }]
+        }
       ]
     },
     {
@@ -300,6 +438,42 @@ int main() {
     printf("%d\\n", sum);
     return 0;
 }`, note: '尾插法建链表：新节点接到末尾，tail 始终指向最后。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-7-5-1', title: '建立链表并求和', level: 'mid',
+          prompt: '读入 `n`（1 ≤ n ≤ 100）和 n 个整数，用**尾插法**建立链表，再遍历链表求出所有元素之和并输出。',
+          starter: `#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node { int data; struct Node *next; } Node;
+
+int main() {
+    int n, x;
+    Node *head = NULL, *tail = NULL;
+    // 读入 n 和 n 个数，尾插法建链表，遍历求和输出
+    return 0;
+}`,
+          hint: '新建节点接到末尾（`tail->next = p; tail = p;`），再 `for (Node *p = head; p != NULL; p = p->next) sum += p->data;`。',
+          tests: [{ stdin: '5\n1 2 3 4 5', expected: '15' }, { stdin: '3\n10 20 30', expected: '60' }]
+        },
+        {
+          id: 'ex-7-5-2', title: '建立链表并遍历输出', level: 'hard',
+          prompt: '读入 `n`（1 ≤ n ≤ 100）和 n 个整数，用**尾插法**建立链表，然后按顺序遍历输出所有元素（每个后面一个空格）。',
+          starter: `#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node { int data; struct Node *next; } Node;
+
+int main() {
+    int n, x;
+    Node *head = NULL, *tail = NULL;
+    // 读入 n 和 n 个数，尾插法建链表，按顺序遍历输出
+    return 0;
+}`,
+          hint: '建好链表后 `for (Node *p = head; p != NULL; p = p->next) printf("%d ", p->data);`，最后 `printf("\\n");`。',
+          tests: [{ stdin: '3\n10 20 30', expected: '10 20 30' }, { stdin: '4\n1 2 3 4', expected: '1 2 3 4' }]
+        }
       ]
     },
     {
@@ -388,6 +562,46 @@ int main() {
     printf("\\n");
     return 0;
 }`, note: '头插法会让插入顺序反过来，所以遍历就是逆序。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-7-6-1', title: '头插法建表并输出', level: 'mid',
+          prompt: '读入 `n`（1 ≤ n ≤ 100）和 n 个整数，用**头插法**建立链表，然后遍历输出所有元素（观察顺序会反过来）。',
+          starter: `#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node { int data; struct Node *next; } Node;
+
+int main() {
+    int n, x;
+    Node *head = NULL;
+    // 读入 n 和 n 个数，头插法建链表，再遍历输出
+    return 0;
+}`,
+          hint: '头插：`p->next = head; head = p;`，插入顺序会反过来。',
+          tests: [{ stdin: '3\n10 20 30', expected: '30 20 10' }, { stdin: '4\n1 2 3 4', expected: '4 3 2 1' }]
+        },
+        {
+          id: 'ex-7-6-2', title: '删除链表中的节点', level: 'hard',
+          prompt: '下面的代码先用头插法造出链表 `30 -> 20 -> 10`。请删除值为 `20` 的节点，然后遍历输出剩余节点。',
+          starter: `#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node { int data; struct Node *next; } Node;
+
+int main() {
+    Node *head = NULL;
+    int vals[] = {10, 20, 30};
+    for (int i = 0; i < 3; i++) {
+        Node *p = (Node*)malloc(sizeof(Node));
+        p->data = vals[i]; p->next = head; head = p;
+    }
+    // 在这里删除值为 20 的节点，并遍历输出剩余节点
+    return 0;
+}`,
+          hint: '用 `prev` 记录前一个节点，找到值为 20 的节点后，把 `prev->next` 指向它的 `next`，再 `free` 它；结果是 30 10。',
+          tests: [{ stdin: '', expected: '30 10' }]
+        }
       ]
     }
   ],

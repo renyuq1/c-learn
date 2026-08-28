@@ -42,6 +42,32 @@ int main() {
     printf("x 的值是 %d\\n", *p);
     return 0;
 }`, note: '`%p` 用来打印地址（十六进制），每次运行地址可能不同。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-6-1-1', title: '指针解引用', level: 'easy',
+          prompt: '声明整型变量 `x = 10`，再声明一个指向它的指针 `p`，用解引用 `*p` 打印 x 的值。',
+          starter: `#include <stdio.h>
+int main() {
+    int x = 10;
+    // 声明指针 p 指向 x，并打印 *p
+    return 0;
+}`,
+          hint: '`int *p = &x; printf("%d\\n", *p);`。',
+          tests: [{ stdin: '', expected: '10' }]
+        },
+        {
+          id: 'ex-6-1-2', title: '通过指针修改变量', level: 'easy',
+          prompt: '声明 `int x = 5;`，用指针 `p` 把 x 的值改成 `20`，再打印 `x`。',
+          starter: `#include <stdio.h>
+int main() {
+    int x = 5;
+    // 用指针把 x 改成 20，再打印 x
+    return 0;
+}`,
+          hint: '`int *p = &x; *p = 20; printf("%d\\n", x);`。',
+          tests: [{ stdin: '', expected: '20' }]
+        }
       ]
     },
     {
@@ -87,6 +113,35 @@ int main() {
     printf("和 = %d\\n", sum);
     return 0;
 }`, note: '用指针遍历数组并累加。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-6-2-1', title: '用指针求数组和', level: 'mid',
+          prompt: '数组 `int a[5] = {3, 7, 2, 9, 5};`，用指针 `*(p + i)` 遍历数组，求出所有元素之和并输出。',
+          starter: `#include <stdio.h>
+int main() {
+    int a[5] = {3, 7, 2, 9, 5};
+    int *p = a;
+    int sum = 0;
+    // 用指针遍历累加并输出
+    return 0;
+}`,
+          hint: '`for (int i = 0; i < 5; i++) sum += *(p + i);`，结果是 26。',
+          tests: [{ stdin: '', expected: '26' }]
+        },
+        {
+          id: 'ex-6-2-2', title: '用指针找最大值', level: 'mid',
+          prompt: '数组 `int a[5] = {3, 7, 2, 9, 5};`，用指针遍历找到最大值并输出。',
+          starter: `#include <stdio.h>
+int main() {
+    int a[5] = {3, 7, 2, 9, 5};
+    int *p = a;
+    // 用指针找最大值并输出
+    return 0;
+}`,
+          hint: '先假设 `*p` 最大，`for (int i = 1; i < 5; i++)` 里比较 `*(p+i)` 更新最大值，结果是 9。',
+          tests: [{ stdin: '', expected: '9' }]
+        }
       ]
     },
     {
@@ -130,6 +185,32 @@ int main() {
     printf("%d\\n", my_strlen("hello"));
     return 0;
 }`, note: '指针逐个后移直到 `\\0`，数出字符个数。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-6-3-1', title: '用指针遍历打印字符串', level: 'mid',
+          prompt: '字符串 `char *s = "Hello";`，用指针逐个字符打印出来（一行）。',
+          starter: `#include <stdio.h>
+int main() {
+    char *s = "Hello";
+    // 用指针逐个打印字符
+    return 0;
+}`,
+          hint: '用 `char *p = s;` 让指针逐个后移，循环到 `\\0` 就停；每轮 `printf("%c", *p)` 打印一个字符，最后 `printf("\\n");`。',
+          tests: [{ stdin: '', expected: 'Hello' }]
+        },
+        {
+          id: 'ex-6-3-2', title: '用指针实现 strlen', level: 'hard',
+          prompt: '读入一个字符串，用指针逐个后移数出它的字符个数（遇到 `\\0` 停止），并输出。',
+          starter: `#include <stdio.h>
+int main() {
+    char s[100];
+    // 读入字符串，用指针数出长度输出
+    return 0;
+}`,
+          hint: '`char *p = s; int n = 0;` 然后循环 `while (*p != \'\\0\') { n++; p++; }`，最后 `printf("%d\\n", n);`。',
+          tests: [{ stdin: 'hello', expected: '5' }, { stdin: 'abc', expected: '3' }]
+        }
       ]
     },
     {
@@ -186,6 +267,46 @@ int main() {
     printf("和=%d 差=%d\\n", s, d);
     return 0;
 }`, note: '一个函数通过指针「输出」多个值。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-6-4-1', title: '用指针交换两个数', level: 'mid',
+          prompt: '补全 `swap` 函数，通过指针交换两个整数。程序会读入两个数并调用它输出。',
+          starter: `#include <stdio.h>
+
+void swap(int *a, int *b) {
+    // 通过指针交换两个数
+}
+
+int main() {
+    int x, y;
+    scanf("%d %d", &x, &y);
+    swap(&x, &y);
+    printf("%d %d\\n", x, y);
+    return 0;
+}`,
+          hint: '`int t = *a; *a = *b; *b = t;`。',
+          tests: [{ stdin: '3 5', expected: '5 3' }, { stdin: '100 1', expected: '1 100' }]
+        },
+        {
+          id: 'ex-6-4-2', title: '通过指针返回和与差', level: 'mid',
+          prompt: '补全 `calc` 函数：通过指针 `sum`、`diff` 输出两个数的和与差。程序会读入两个数并调用它。',
+          starter: `#include <stdio.h>
+
+void calc(int a, int b, int *sum, int *diff) {
+    // 通过指针输出和与差
+}
+
+int main() {
+    int x, y, s, d;
+    scanf("%d %d", &x, &y);
+    calc(x, y, &s, &d);
+    printf("%d %d\\n", s, d);
+    return 0;
+}`,
+          hint: '`*sum = a + b; *diff = a - b;`。',
+          tests: [{ stdin: '10 4', expected: '14 6' }, { stdin: '8 3', expected: '11 5' }]
+        }
       ]
     },
     {
@@ -233,6 +354,33 @@ int main() {
     printf("\\n");
     return 0;
 }`, note: '用 sizeof 算出数组长度，再用指针数组遍历。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-6-5-1', title: '二级指针解引用', level: 'mid',
+          prompt: '变量 `int x = 10; int *p = &x;`，再声明一个二级指针 `pp` 指向 `p`，用 `**pp` 打印 x 的值。',
+          starter: `#include <stdio.h>
+int main() {
+    int x = 10;
+    int *p = &x;
+    // 声明二级指针 pp 并打印 **pp
+    return 0;
+}`,
+          hint: '`int **pp = &p; printf("%d\\n", **pp);`。',
+          tests: [{ stdin: '', expected: '10' }]
+        },
+        {
+          id: 'ex-6-5-2', title: '遍历指针数组', level: 'mid',
+          prompt: '指针数组 `char *names[] = {"Alice", "Bob", "Cindy"};`，遍历并打印所有字符串（每个后面一个空格）。',
+          starter: `#include <stdio.h>
+int main() {
+    char *names[] = {"Alice", "Bob", "Cindy"};
+    // 遍历指针数组并打印
+    return 0;
+}`,
+          hint: '`for (int i = 0; i < 3; i++) printf("%s ", names[i]);` 最后 `printf("\\n");`。',
+          tests: [{ stdin: '', expected: 'Alice Bob Cindy' }]
+        }
       ]
     }
   ],

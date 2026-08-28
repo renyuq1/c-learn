@@ -22,6 +22,11 @@ const chapterOrder = [];
       ch.stageId = stage.id;
       chapterMap[ch.id] = ch;
       chapterOrder.push(ch);
+      (ch.exercises || []).forEach(function (p, i) {
+        p.stageId = stage.id;
+        p.id = p.id || (ch.id + '-ex-' + i);
+        codeProblemMap[p.id] = p;
+      });
     });
     const quiz = stage.quiz || {};
     (quiz.code || []).forEach(function (p, i) {
@@ -100,6 +105,10 @@ function computeStats() {
     (stage.chapters || []).forEach(function (ch) {
       chapters++; sCh++;
       if (progress.done[ch.id]) { doneChapters++; sDone++; }
+      (ch.exercises || []).forEach(function (p) {
+        codeTotal++; sCode++;
+        if (progress.codePassed[p.id]) { codePassed++; sCodePass++; }
+      });
     });
     const quiz = stage.quiz || {};
     (quiz.code || []).forEach(function (p) {
@@ -247,7 +256,7 @@ function renderCodeProblem(p) {
   html += '<div class="editor-toolbar">';
   html += '<button class="btn-small btn-run js-run">▶ 运行</button>';
   html += '<button class="btn-small btn-check js-check">✔ 提交判题</button>';
-  html += '<button class="btn-small btn-answer js-answer">👀 参考答案</button>';
+  if (p.answer) html += '<button class="btn-small btn-answer js-answer">👀 参考答案</button>';
   html += '<button class="btn-small btn-reset js-reset">↺ 重置</button>';
   html += '<span class="spacer"></span><span class="editor-status js-status"></span></div>';
   html += '<div class="output js-out"></div>';
@@ -255,9 +264,11 @@ function renderCodeProblem(p) {
   if (p.hint) {
     html += '<div class="hint-box"><button class="hint-btn js-hint">💡 查看提示</button><div class="hint-content" style="display:none;margin-top:6px">' + renderInline(p.hint) + '</div></div>';
   }
-  html += '<div class="answer-box js-answer-box"><span class="answer-label">参考答案</span><pre>' + esc(p.answer) + '</pre>';
-  if (p.explain) html += '<div class="answer-explain">📖 解析：' + renderInline(p.explain) + '</div>';
-  html += '</div>';
+  if (p.answer) {
+    html += '<div class="answer-box js-answer-box"><span class="answer-label">参考答案</span><pre>' + esc(p.answer) + '</pre>';
+    if (p.explain) html += '<div class="answer-explain">📖 解析：' + renderInline(p.explain) + '</div>';
+    html += '</div>';
+  }
   html += '</div>';
   return html;
 }
@@ -288,6 +299,11 @@ function renderChapter(id) {
   if (ch.examples && ch.examples.length) {
     html += '<div class="section-title">动手试试</div>';
     ch.examples.forEach(function (ex) { html += renderExample(ex); });
+  }
+
+  if (ch.exercises && ch.exercises.length) {
+    html += '<div class="section-title">练习</div>';
+    ch.exercises.forEach(function (p) { html += renderCodeProblem(p); });
   }
 
   html += '<div class="chapter-nav">';

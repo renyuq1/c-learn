@@ -46,6 +46,34 @@ int main() {
     greet();   // 调用两次
     return 0;
 }`, note: '函数定义一次，可以调用多次。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-5-1-1', title: '定义并调用 printLine', level: 'easy',
+          prompt: '定义一个函数 `printLine()`，它打印一行 `----------`；然后在 `main` 中调用它两次，打印出两行分隔线。',
+          starter: `#include <stdio.h>
+
+// 在这里定义 printLine 函数
+int main() {
+    // 调用 printLine 两次
+    return 0;
+}`,
+          hint: '定义 `void printLine() { printf("----------\\n"); }`，再在 main 里写两次 `printLine();`。',
+          tests: [{ stdin: '', expected: '----------\n----------' }]
+        },
+        {
+          id: 'ex-5-1-2', title: '定义并调用 greet', level: 'easy',
+          prompt: '定义一个函数 `greet()`，打印 `欢迎学习 C 语言！`，并在 `main` 中调用它。',
+          starter: `#include <stdio.h>
+
+// 在这里定义 greet 函数
+int main() {
+    // 调用 greet
+    return 0;
+}`,
+          hint: '定义 `void greet() { printf("欢迎学习 C 语言！\\n"); }`，再在 main 里 `greet();`。',
+          tests: [{ stdin: '', expected: '欢迎学习 C 语言！' }]
+        }
       ]
     },
     {
@@ -89,6 +117,65 @@ int main() {
     printf("%d\\n", result);
     return 0;
 }`, note: '函数返回 `a+b`，调用处接收结果。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-5-2-1', title: '完成 add 函数', level: 'easy',
+          prompt: '补全下面的 `add` 函数，让它返回两个整数的和。程序会读入两个数并调用它输出。',
+          starter: `#include <stdio.h>
+
+// 定义 add 函数，返回两个整数的和
+int add(int a, int b) {
+    // 在这里返回 a + b
+}
+
+int main() {
+    int x, y;
+    scanf("%d %d", &x, &y);
+    printf("%d\\n", add(x, y));
+    return 0;
+}`,
+          hint: '函数体里写 `return a + b;`。',
+          tests: [{ stdin: '3 7', expected: '10' }, { stdin: '20 30', expected: '50' }]
+        },
+        {
+          id: 'ex-5-2-2', title: '完成 max 函数', level: 'mid',
+          prompt: '补全 `max` 函数，返回两个整数中较大的一个。程序会读入两个数并调用它输出。',
+          starter: `#include <stdio.h>
+
+// 定义 max 函数，返回较大值
+int max(int a, int b) {
+    // 在这里返回较大的那个
+}
+
+int main() {
+    int x, y;
+    scanf("%d %d", &x, &y);
+    printf("%d\\n", max(x, y));
+    return 0;
+}`,
+          hint: '`if (a > b) return a; else return b;`。',
+          tests: [{ stdin: '3 7', expected: '7' }, { stdin: '9 4', expected: '9' }]
+        },
+        {
+          id: 'ex-5-2-3', title: '完成 square 函数', level: 'easy',
+          prompt: '补全 `square` 函数，返回整数 `x` 的平方。程序会读入一个数并调用它输出。',
+          starter: `#include <stdio.h>
+
+// 定义 square 函数，返回 x 的平方
+int square(int x) {
+    // 在这里返回 x * x
+}
+
+int main() {
+    int n;
+    scanf("%d", &n);
+    printf("%d\\n", square(n));
+    return 0;
+}`,
+          hint: '函数体里写 `return x * x;`。',
+          tests: [{ stdin: '6', expected: '36' }, { stdin: '9', expected: '81' }]
+        }
       ]
     },
     {
@@ -133,6 +220,46 @@ int main() {
     printf("\\n");
     return 0;
 }`, note: '斐波那契：0, 1, 1, 2, 3, 5, 8。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-5-3-1', title: '递归求阶乘', level: 'mid',
+          prompt: '用**递归**补全 `fact(n)`，计算 n 的阶乘（`0! = 1`，`n! = n × (n-1)!`）。',
+          starter: `#include <stdio.h>
+
+// 递归定义 fact(n) = n!
+int fact(int n) {
+    // 递归出口 + 递归关系
+}
+
+int main() {
+    int n;
+    scanf("%d", &n);
+    printf("%d\\n", fact(n));
+    return 0;
+}`,
+          hint: '`if (n == 0) return 1; return n * fact(n - 1);`。',
+          tests: [{ stdin: '5', expected: '120' }, { stdin: '0', expected: '1' }]
+        },
+        {
+          id: 'ex-5-3-2', title: '递归求斐波那契', level: 'hard',
+          prompt: '用**递归**补全 `fib(n)`：`fib(0)=0`、`fib(1)=1`、`fib(n)=fib(n-1)+fib(n-2)`。',
+          starter: `#include <stdio.h>
+
+// 递归定义 fib(n)
+int fib(int n) {
+    // 递归出口 + 递归关系
+}
+
+int main() {
+    int n;
+    scanf("%d", &n);
+    printf("%d\\n", fib(n));
+    return 0;
+}`,
+          hint: '`if (n == 0) return 0; if (n == 1) return 1; return fib(n-1) + fib(n-2);`。',
+          tests: [{ stdin: '6', expected: '8' }, { stdin: '1', expected: '1' }]
+        }
       ]
     },
     {
@@ -197,6 +324,45 @@ int main() {
     withStatic(); withStatic();
     return 0;
 }`, note: '普通变量每次重置，静态变量会累积。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-5-4-1', title: '用 static 计数', level: 'mid',
+          prompt: '补全 `counter` 函数：用一个 `static` 变量，让它在每次调用时加 1 并打印。程序会连续调用它 3 次。',
+          starter: `#include <stdio.h>
+
+void counter() {
+    // 用 static 变量，每次调用加 1 并打印
+}
+
+int main() {
+    counter();
+    counter();
+    counter();
+    printf("\\n");
+    return 0;
+}`,
+          hint: '`static int n = 0; n++; printf("%d ", n);`，三次调用打印 1 2 3。',
+          tests: [{ stdin: '', expected: '1 2 3' }]
+        },
+        {
+          id: 'ex-5-4-2', title: '普通局部变量会重置', level: 'mid',
+          prompt: '补全 `normal` 函数：用**普通局部变量**（不加 `static`）实现「每次调用加 1 并打印」。程序会调用它两次。',
+          starter: `#include <stdio.h>
+
+void normal() {
+    // 用普通局部变量（不加 static）
+}
+
+int main() {
+    normal();
+    normal();
+    printf("\\n");
+    return 0;
+}`,
+          hint: '`int n = 0; n++; printf("%d ", n);`（不加 static），每次调用都重新从 0 开始，打印 1 1。',
+          tests: [{ stdin: '', expected: '1 1' }]
+        }
       ]
     },
     {
@@ -235,6 +401,45 @@ int main() {
     printf("\\n");
     return 0;
 }`, note: '每次运行结果可能不同（受随机种子影响）。' }
+      ],
+      exercises: [
+        {
+          id: 'ex-5-5-1', title: '用 sqrt 求平方根', level: 'easy',
+          prompt: '用 `sqrt` 计算 16 的平方根，用 `%.0f` 打印（不显示小数）。记得 `#include <math.h>`。',
+          starter: `#include <stdio.h>
+#include <math.h>
+int main() {
+    // 打印 sqrt(16)
+    return 0;
+}`,
+          hint: '`printf("%.0f\\n", sqrt(16));`。',
+          tests: [{ stdin: '', expected: '4' }]
+        },
+        {
+          id: 'ex-5-5-2', title: '用 pow 计算次方', level: 'easy',
+          prompt: '用 `pow` 计算 2 的 10 次方，用 `%.0f` 打印。',
+          starter: `#include <stdio.h>
+#include <math.h>
+int main() {
+    // 打印 pow(2, 10)
+    return 0;
+}`,
+          hint: '`printf("%.0f\\n", pow(2, 10));`。',
+          tests: [{ stdin: '', expected: '1024' }]
+        },
+        {
+          id: 'ex-5-5-3', title: '读入数字求平方根', level: 'mid',
+          prompt: '读入一个整数 `n`，输出它的平方根 `sqrt(n)`，保留两位小数（`%.2f`）。',
+          starter: `#include <stdio.h>
+#include <math.h>
+int main() {
+    int n;
+    // 读入 n，输出 sqrt(n)（%.2f）
+    return 0;
+}`,
+          hint: '`scanf("%d", &n); printf("%.2f\\n", sqrt(n));`。',
+          tests: [{ stdin: '9', expected: '3.00' }, { stdin: '2', expected: '1.41' }]
+        }
       ]
     }
   ],
