@@ -328,7 +328,7 @@ function renderHome() {
   let html = '';
   html += '<div class="hero">';
   html += '<h1>⚙️ 从零开始，系统学会 C 语言</h1>';
-  html += '<p>不需要任何编程基础。跟着 8 个章节循序渐进：边看讲解、边在网页里写 C 代码、编译运行、做题训练，一路走到能独立做小项目。</p>';
+  html += '<p>不需要任何编程基础。跟着 ' + COURSE.length + ' 个章节循序渐进：边看讲解、边在网页里写 C 代码、编译运行、做题训练，一路走到能独立做小项目。</p>';
   html += '<div class="hero-actions">';
   html += '<a class="btn btn-primary" href="#/chapter/' + (progress.last || chapterOrder[0].id) + '">' + (progress.last ? '继续学习 →' : '开始第一课 →') + '</a>';
   html += '<a class="btn btn-outline" href="#/progress">查看学习进度</a>';
@@ -381,14 +381,20 @@ function renderQuiz(stageId) {
   const choice = quiz.choice || [];
   const fill = quiz.fill || [];
   const code = quiz.code || [];
+  const CN = ['一', '二', '三', '四', '五', '六'];
+  let secNo = 0;
 
   let html = '';
   html += '<div class="quiz-head"><div class="crumb">' + esc(stage.title) + '</div>';
   html += '<h1>' + esc(quiz.title || '本章训练题') + '</h1>';
-  html += '<p>共 ' + (choice.length + fill.length + code.length) + ' 题：选择题 ' + choice.length + '、填空题 ' + fill.length + '、编程题 ' + code.length + '。</p></div>';
+  const totalParts = [];
+  if (choice.length) totalParts.push('选择题 ' + choice.length);
+  if (fill.length) totalParts.push('填空题 ' + fill.length);
+  if (code.length) totalParts.push('编程题 ' + code.length);
+  html += '<p>共 ' + (choice.length + fill.length + code.length) + ' 题：' + totalParts.join('、') + '。</p></div>';
 
   if (choice.length) {
-    html += '<div class="quiz-part-title">一、选择题</div>';
+    html += '<div class="quiz-part-title">' + CN[secNo++] + '、选择题</div>';
     html += '<div class="quiz-part-hint">点击选项选中，提交后显示答案与解析。</div>';
     choice.forEach(function (q, qi) {
       html += '<div class="question" data-qi="' + qi + '">';
@@ -401,7 +407,7 @@ function renderQuiz(stageId) {
   }
 
   if (fill.length) {
-    html += '<div class="quiz-part-title">二、填空题</div>';
+    html += '<div class="quiz-part-title">' + CN[secNo++] + '、填空题</div>';
     html += '<div class="quiz-part-hint">在输入框中填写答案（不区分大小写），提交后判对错并给出解析。</div>';
     fill.forEach(function (q, fi) {
       html += '<div class="question" data-fi="' + fi + '">';
@@ -417,7 +423,7 @@ function renderQuiz(stageId) {
   }
 
   if (code.length) {
-    html += '<div class="quiz-part-title">三、编程题</div>';
+    html += '<div class="quiz-part-title">' + CN[secNo++] + '、编程题</div>';
     html += '<div class="quiz-part-hint">在编辑器中写代码，点「运行」看结果，点「提交判题」自动判对错。</div>';
     code.forEach(function (p) { html += renderCodeProblem(p); });
   }
