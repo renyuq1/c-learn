@@ -5,8 +5,7 @@
 'use strict';
 
 /* ---------------- 常量 ---------------- */
-const WANDBOX_URL = 'https://wandbox.org/api/compile.json';
-const C_COMPILER = 'gcc-13.2.0-c';   // Wandbox 上的 C（不是 C++）编译器
+const COMPILE_URL = 'https://godbolt.org/api/compiler/cg162/compile';  // Compiler Explorer (godbolt) x86-64 gcc 16.2
 const STORAGE_KEY = 'c-learn-progress-v1';
 
 /* ---------------- 索引 ---------------- */
@@ -127,20 +126,39 @@ function computeStats() {
   return { chapters, doneChapters, codeTotal, codePassed, quizQ, quizCorrect, overall, perStage };
 }
 
-/* ---------------- 在线运行（Wandbox 编译执行） ---------------- */
+/* ---------------- 在线运行（Compiler Explorer / godbolt 编译执行） ---------------- */
+function gbText(arr) {
+  // godbolt 的 stdout/stderr 是 [{text}] 数组，每行一个、行尾无换行
+  if (!Array.isArray(arr)) return '';
+  return arr.map(function (o) { return o && o.text != null ? String(o.text) : ''; }).join('\n');
+}
+const ANSI_RE = new RegExp(String.fromCharCode(27) + '\\[[0-9;]*[A-Za-z]', 'g');
+function stripAnsi(s) {
+  return String(s == null ? '' : s).replace(ANSI_RE, '');
+}
 async function runCCode(code, stdin) {
-  const res = await fetch(WANDBOX_URL, {
+  const res = await fetch(COMPILE_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ compiler: C_COMPILER, code: code, stdin: stdin || '', save: false })
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({
+      source: code,
+      options: {
+        userArguments: '',
+        compilerOptions: { executorRequest: true },
+        filters: { execute: true },
+        executeParameters: { args: [], stdin: stdin || '' }
+      }
+    })
   });
   if (!res.ok) throw new Error('在线编译器暂时不可用（HTTP ' + res.status + '）');
   const d = await res.json();
+  const build = d.buildResult || {};
+  const compileError = stripAnsi(gbText(build.stderr));
   return {
-    stdout: d.program_output || '',
-    stderr: d.program_error || '',
-    compileError: d.compiler_error || '',
-    status: d.status
+    stdout: stripAnsi(gbText(d.stdout)),
+    stderr: stripAnsi(gbText(d.stderr)),
+    compileError: build.code !== 0 ? compileError : '',
+    status: build.code !== 0 ? String(build.code) : String(d.code)
   };
 }
 function formatRun(r) {

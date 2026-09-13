@@ -24,7 +24,7 @@ https://renyuq1.github.io/c-learn/
 
 - 纯 HTML / CSS / JavaScript 单页应用（hash 路由），无构建、无框架。
 - 代码编辑器：[CodeMirror 5](https://codemirror.net/)（`clike` 模式，C 语言高亮）。
-- 在线编译运行：[Wandbox API](https://wandbox.org/)（编译器 `gcc-13.2.0-c`），需联网。
+- 在线编译运行：[Compiler Explorer API](https://godbolt.org/)（x86-64 `gcc 16.2`），需联网。
 - 学习进度：`localStorage` 本地保存（键 `c-learn-progress-v1`），无需登录。
 
 ## 本地运行
