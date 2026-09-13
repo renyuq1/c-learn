@@ -739,6 +739,7 @@ function route() {
   renderSidebar();
   updateTopbar();
   updateActiveNav();
+  syncCompilerUI();
   window.scrollTo(0, 0);
   closeSidebarMobile();
 }
@@ -782,10 +783,164 @@ function injectMenuToggle() {
   });
 }
 
+/* ---------------- 右侧在线编译器（草稿本） ---------------- */
+const SCRATCH_KEY = 'c-learn-scratch-v1';
+const SCRATCH_DEFAULT = '#include <stdio.h>\n\nint main(void) {\n    printf("Hello, C!\\n");\n    return 0;\n}\n';
+
+let scratchState = loadScratch();
+let scratchCM = null;
+let scratchEls = null;
+
+function loadScratch() {
+  const d = { code: SCRATCH_DEFAULT, stdin: '', open: false };
+  try {
+    const raw = localStorage.getItem(SCRATCH_KEY);
+    if (raw) {
+      const o = JSON.parse(raw);
+      if (o && typeof o.code === 'string') { d.code = o.code; d.stdin = o.stdin || ''; d.open = !!o.open; }
+    }
+  } catch (e) {}
+  return d;
+}
+function saveScratch() {
+  try { localStorage.setItem(SCRATCH_KEY, JSON.stringify(scratchState)); } catch (e) {}
+}
+
+function injectCompilerPanel() {
+  const panel = document.createElement('aside');
+  panel.className = 'compiler-panel';
+  panel.id = 'compilerPanel';
+  panel.innerHTML =
+    '<div class="cp-head">' +
+      '<span class="cp-title">🧪 在线编译器</span>' +
+      '<button class="cp-reset js-cp-reset" title="重置为默认代码">↺ 重置</button>' +
+      '<button class="cp-close js-cp-close" title="收起面板">✕</button>' +
+    '</div>' +
+    '<div class="cp-body">' +
+      '<div class="cp-editor"><textarea class="code-editor" id="cpEditor"></textarea></div>' +
+      '<div class="cp-toolbar">' +
+        '<button class="btn-small cp-run js-cp-run">▶ 运行</button>' +
+        '<button class="btn-small cp-ghost js-cp-stdin-toggle">⌨ stdin 输入</button>' +
+        '<span class="spacer"></span><span class="editor-status js-cp-status"></span>' +
+      '</div>' +
+      '<div class="cp-stdin" style="display:none"><textarea id="cpStdin" placeholder="程序输入（若用 scanf 等读取，每行一项）"></textarea></div>' +
+      '<div class="cp-output js-cp-output"></div>' +
+    '</div>';
+
+  const tab = document.createElement('button');
+  tab.className = 'compiler-tab';
+  tab.id = 'compilerTab';
+  tab.innerHTML = '🧪 编译器';
+  tab.title = '打开在线编译器';
+
+  document.body.appendChild(panel);
+  document.body.appendChild(tab);
+
+  // 编辑器（CodeMirror C 语言高亮）
+  const editorTa = document.getElementById('cpEditor');
+  if (window.CodeMirror) {
+    scratchCM = CodeMirror.fromTextArea(editorTa, {
+      mode: 'text/x-csrc', theme: 'dracula', lineNumbers: true,
+      indentUnit: 4, tabSize: 4, indentWithTabs: false, lineWrapping: false
+    });
+    scratchCM.setValue(scratchState.code);
+    scratchCM.on('change', function () { scratchState.code = scratchCM.getValue(); saveScratch(); });
+  } else {
+    editorTa.value = scratchState.code;
+    editorTa.addEventListener('input', function () { scratchState.code = editorTa.value; saveScratch(); });
+  }
+
+  scratchEls = {
+    panel: panel,
+    tab: tab,
+    status: panel.querySelector('.js-cp-status'),
+    output: panel.querySelector('.js-cp-output'),
+    stdinWrap: panel.querySelector('.cp-stdin'),
+    stdin: panel.querySelector('#cpStdin')
+  };
+  scratchEls.stdin.value = scratchState.stdin;
+  scratchEls.stdin.addEventListener('input', function () { scratchState.stdin = scratchEls.stdin.value; saveScratch(); });
+  resetScratchOutput();
+
+  tab.addEventListener('click', function () { setScratchOpen(true); });
+  panel.querySelector('.js-cp-close').addEventListener('click', function () { setScratchOpen(false); });
+  panel.querySelector('.js-cp-run').addEventListener('click', runScratch);
+  panel.querySelector('.js-cp-reset').addEventListener('click', resetScratch);
+  panel.querySelector('.js-cp-stdin-toggle').addEventListener('click', function () {
+    const w = scratchEls.stdinWrap;
+    w.style.display = w.style.display === 'none' ? 'block' : 'none';
+    if (scratchCM) scratchCM.refresh();
+  });
+
+  syncCompilerUI();
+}
+
+function setScratchOpen(open) {
+  scratchState.open = open;
+  saveScratch();
+  syncCompilerUI();
+  if (open && scratchCM) setTimeout(function () { scratchCM.refresh(); }, 80);
+}
+
+function syncCompilerUI() {
+  if (!scratchEls) return;
+  const onChapter = !!currentChapterId();
+  scratchEls.tab.classList.toggle('hidden', !onChapter);
+  scratchEls.panel.classList.toggle('open', scratchState.open && onChapter);
+}
+
+function getScratchCode() {
+  return scratchCM ? scratchCM.getValue() : document.getElementById('cpEditor').value;
+}
+
+function resetScratchOutput() {
+  scratchEls.output.classList.add('placeholder');
+  scratchEls.output.innerHTML = '<span class="out-label">输出</span>\n点击「▶ 运行」编译并执行上面的代码';
+}
+
+function resetScratch() {
+  if (scratchCM) scratchCM.setValue(SCRATCH_DEFAULT); else document.getElementById('cpEditor').value = SCRATCH_DEFAULT;
+  scratchState.code = SCRATCH_DEFAULT;
+  scratchState.stdin = '';
+  if (scratchEls.stdin) scratchEls.stdin.value = '';
+  saveScratch();
+  resetScratchOutput();
+  toast('已重置为默认代码');
+}
+
+async function runScratch() {
+  const code = getScratchCode();
+  const stdin = scratchEls.stdin.value || '';
+  scratchState.code = code;
+  scratchState.stdin = stdin;
+  saveScratch();
+  scratchEls.status.textContent = '正在编译运行…';
+  scratchEls.status.classList.add('loading');
+  try {
+    const r = formatRun(await runCCode(code, stdin));
+    showScratchOutput(r.out, r.err);
+  } catch (e) {
+    showScratchOutput('', OFFLINE_MSG);
+  }
+  scratchEls.status.textContent = '';
+  scratchEls.status.classList.remove('loading');
+}
+
+function showScratchOutput(stdout, stderr) {
+  const outEl = scratchEls.output;
+  outEl.classList.remove('placeholder');
+  if (stderr) {
+    outEl.innerHTML = '<span class="out-label">输出 / 错误</span>\n<span class="out-err">' + esc(stderr) + '</span>' + (stdout ? '\n' + esc(stdout) : '');
+  } else {
+    outEl.innerHTML = '<span class="out-label">输出</span>\n' + (esc(stdout) || '(无输出)');
+  }
+}
+
 /* ---------------- 启动 ---------------- */
 window.addEventListener('hashchange', route);
 document.addEventListener('DOMContentLoaded', function () {
   injectMenuToggle();
+  injectCompilerPanel();
   if (!location.hash) location.hash = '#/home';
   route();
 });
